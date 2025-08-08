@@ -2,6 +2,8 @@ import React from 'react';
 import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
+import logo from '../images/logo.png';
+import icon from '../images/imgpsh_fullsize_anim__1_-removebg-preview.png';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -12,7 +14,7 @@ const Header: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
+    setIsMenuOpen(false);``
   };
 
   const languages = [
@@ -22,17 +24,29 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-sm transition-colors duration-300">
+    <header className="fixed w-full top-0 z-50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm shadow-sm transition-colors duration-300">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">T</span>
+          <div 
+            className="flex items-center cursor-pointer group" 
+            onClick={() => scrollToSection('hero')}
+          >
+            <div className="relative">
+            <img
+               src={icon}
+               alt="App Icon"
+               className="h-7 w-7 mr-1 group-hover:scale-110 transition-transform duration-300"
+              />
+
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Tandhif Dubai
-            </span>
+           <div className="flex items-center">
+           <img
+              src={logo}
+              alt="Tandhif Logo"
+              className="h-4 object-contain "
+            />
+           </div>  
           </div>
 
           {/* Desktop Navigation */}
@@ -71,10 +85,14 @@ const Header: React.FC = () => {
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                <Globe size={18} />
-                <span className="text-sm">
+                {/* <Globe size={18} /> */}
+                <span style={{ fontSize: '30px', lineHeight: '20px' }}>
                   {languages.find(lang => lang.code === language)?.flag}
                 </span>
+                <span className="text-sm font-semibold">
+    {language.toUpperCase()}
+  </span>
+
               </button>
               
               {isLangOpen && (
@@ -100,11 +118,12 @@ const Header: React.FC = () => {
 
             {/* Theme Toggle */}
             <button
-              onClick={toggleTheme}
-              className="p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
+  onClick={toggleTheme}
+  className="p-2 border border-gray-400 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+>
+  {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+</button>
+
 
             {/* Mobile Menu Button */}
             <button
